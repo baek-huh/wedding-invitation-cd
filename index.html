@@ -815,7 +815,7 @@ img { max-width: 100%; display: block; }
 
     <div class="location__map">
       <div id="naverMap" class="location__map-canvas" aria-label="식장 약도">
-        <!-- Fallback shown while Naver Maps loads, or if ncpClientId is missing/invalid -->
+        <!-- Fallback shown while Naver Maps loads, or if ncpKeyId is missing/invalid -->
         <svg viewBox="0 0 340 200">
           <path d="M0,60 L340,40" stroke="#AFBACA" stroke-width="6" fill="none" opacity="0.4"/>
           <path d="M0,60 L340,40" stroke="#fff" stroke-width="0.6" stroke-dasharray="4 4" fill="none"/>
@@ -1262,14 +1262,15 @@ initNaverMap();
 </script>
 
 <!--
-  Naver Maps JavaScript API.
-  1. Sign up at https://www.ncloud.com → Application Services → Maps
-  2. Create credentials, copy the "Client ID"
-  3. Replace YOUR_NCP_CLIENT_ID below with that value
-  4. In ncloud console, add your serving domain (and http://localhost for dev) to "Web 서비스 URL"
-  Without a valid key the SVG fallback inside #naverMap stays visible.
+  Naver Maps JavaScript API v3.
+  Param name was renamed: ncpClientId → ncpKeyId. Use ncpKeyId in current docs.
+  1. Sign up at https://www.ncloud.com → Application Services → Maps (Web Dynamic Map)
+  2. Create credentials, copy the "Client ID" (also called Application Key)
+  3. Set it as the ncpKeyId value in the script src below
+  4. In ncloud console, add the serving domain (and http://localhost:8080 for dev) to "Web 서비스 URL"
+  If the key is missing/invalid the SVG fallback inside #naverMap stays visible.
 -->
-<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_NCP_CLIENT_ID&callback=initNaverMap" defer></script>
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=sll3mviegz&callback=initNaverMap" defer></script>
 
 </body>
 </html>

@@ -11,3 +11,6 @@
 
 # Logs
 *.log
+
+# Claude Code local settings (commit launch.json but not personal prefs)
+.claude/settings.local.json
