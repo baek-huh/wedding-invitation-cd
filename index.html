@@ -192,7 +192,7 @@ img { max-width: 100%; display: block; }
   display: flex;
   justify-content: center;
   gap: 36px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--slate-800);
   line-height: 1.8;
 }
@@ -315,32 +315,66 @@ img { max-width: 100%; display: block; }
 
 /* ─── 4. Gallery ─────────────────────────────────────────────── */
 .gallery { padding: 56px 0; background: #fff; }
+.gallery__strip {
+  display: flex;
+  gap: 4px;
+  padding: 0 20px;
+  margin-bottom: 28px;
+}
+.gallery__strip-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--slate-100);
+}
+.gallery__strip-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .gallery__grid {
   padding: 0 20px;
-  column-count: 3;
-  column-gap: 4px;
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+.gallery__col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .gallery__cell {
   width: 100%;
-  margin: 0 0 4px;
   overflow: hidden;
   border-radius: 4px;
   background: var(--slate-100);
   cursor: pointer;
-  break-inside: avoid;
   display: block;
 }
-/* Pinterest-like varied aspect ratios — cycle every 5 cells */
-.gallery__cell:nth-child(5n+1) { aspect-ratio: 3 / 4; }
-.gallery__cell:nth-child(5n+2) { aspect-ratio: 1 / 1; }
-.gallery__cell:nth-child(5n+3) { aspect-ratio: 4 / 5; }
-.gallery__cell:nth-child(5n+4) { aspect-ratio: 5 / 7; }
-.gallery__cell:nth-child(5n+5) { aspect-ratio: 6 / 5; }
 .gallery__cell img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
+.gallery__cell--hidden { display: none; }
+.gallery__more {
+  display: block;
+  margin: 24px auto 0;
+  padding: 10px 28px;
+  background: transparent;
+  border: 1px solid var(--slate-300);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--slate-700);
+  cursor: pointer;
+}
+.gallery__more:hover { background: var(--slate-100); }
 .gallery__hint {
   text-align: center;
   margin-top: 20px;
@@ -397,6 +431,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 10px;
   text-align: center;
+  margin-bottom: 32px;
 }
 .section-head__en {
   font-family: var(--font-serif);
@@ -732,6 +767,10 @@ img { max-width: 100%; display: block; }
 
   <!-- 2. Greeting ──────────────────────────────────────────── -->
   <section class="greeting reveal">
+    <div class="section-head">
+      <div class="section-head__en">Invitation</div>
+      <div class="section-head__rule"></div>
+    </div>
     <div class="greeting__msg">"나는 지금껏 내가 만난
 모든 이들로 이루어져 있다."
 
@@ -745,6 +784,11 @@ img { max-width: 100%; display: block; }
 
     <hr class="greeting__divider">
 
+    <div class="section-head">
+      <div class="section-head__en">Groom &amp; Bride</div>
+      <div class="section-head__rule"></div>
+    </div>
+
     <div class="greeting__photo">
       <img src="assets/couple.jpg" alt="허백 안지현 커플" loading="lazy">
     </div>
@@ -752,14 +796,14 @@ img { max-width: 100%; display: block; }
     <div class="greeting__people">
       <div>
         <div class="greeting__role">GROOM</div>
-        허원순 · 이순분<br>
-        <span class="greeting__person">의 장남 허백</span>
+        허원순 · 이순분 의<br>
+        <span class="greeting__person">장남 허백</span>
       </div>
       <div class="greeting__sep"></div>
       <div>
         <div class="greeting__role">BRIDE</div>
-        안영석 · 정경희<br>
-        <span class="greeting__person">의 장녀 안지현</span>
+        안영석 · 정경희 의<br>
+        <span class="greeting__person">장녀 안지현</span>
       </div>
     </div>
   </section>
@@ -768,6 +812,10 @@ img { max-width: 100%; display: block; }
 
   <!-- 3. Calendar ──────────────────────────────────────────── -->
   <section class="calendar reveal">
+    <div class="section-head">
+      <div class="section-head__en">Wedding On</div>
+      <div class="section-head__rule"></div>
+    </div>
     <div class="calendar__date">2026. 06. 20</div>
     <div class="calendar__when">토요일 오후 6시 30분</div>
     <div class="calendar__grid-wrap">
@@ -794,7 +842,21 @@ img { max-width: 100%; display: block; }
 
   <!-- 4. Gallery ──────────────────────────────────────────── -->
   <section class="gallery reveal">
+    <div class="section-head">
+      <div class="section-head__en">Gallery</div>
+      <div class="section-head__rule"></div>
+    </div>
+    <div class="gallery__strip" aria-hidden="true">
+      <div class="gallery__strip-cell"><img src="assets/gallery/a1.jpg" alt=""></div>
+      <div class="gallery__strip-cell"><img src="assets/gallery/a2.jpg" alt=""></div>
+      <div class="gallery__strip-cell"><img src="assets/gallery/a3.jpg" alt=""></div>
+      <div class="gallery__strip-cell"><img src="assets/gallery/a4.jpg" alt=""></div>
+      <div class="gallery__strip-cell"><img src="assets/gallery/a5.jpg" alt=""></div>
+    </div>
     <div class="gallery__grid" id="galleryGrid"></div>
+    <button type="button" class="gallery__more" id="galleryMore" hidden>
+      사진 더보기
+    </button>
     <div class="gallery__hint">tap to view</div>
   </section>
 
@@ -946,13 +1008,7 @@ const WEDDING = {
     // 백제고분로 95 근처 좌표 — 정확한 식장 위치 확인 후 조정 필요
     coords: { lat: 37.5037, lng: 127.1059 },
   },
-  gallery: [
-    'assets/gallery/01.jpg',
-    'assets/gallery/02.jpg',
-    'assets/gallery/03.jpg',
-    'assets/gallery/04.jpg',
-    'assets/gallery/05.jpg',
-  ],
+  gallery: Array.from({ length: 57 }, (_, i) => `assets/gallery/${i + 1}.jpg`),
   accounts: {
     groom: [
       { label: '신랑 허백',     bank: '카카오뱅크', number: '3333-02-1234567' },
@@ -1067,17 +1123,50 @@ function initGallery(images) {
   const lbCount = $('#lbCounter');
   let cur = 0;
 
+  const INITIAL_VISIBLE = 12;
+  const COL_COUNT = 3;
+  // 5-step aspect-ratio cycle (matches previous design intent)
+  const RATIOS  = ['3 / 4', '1 / 1', '4 / 5', '5 / 7', '6 / 5'];
+  const HEIGHTS = [4 / 3,    1,       5 / 4,   7 / 5,   5 / 6]; // height per unit width
+
+  // Build N column containers
+  const cols = [];
+  for (let c = 0; c < COL_COUNT; c++) {
+    const col = document.createElement('div');
+    col.className = 'gallery__col';
+    grid.appendChild(col);
+    cols.push({ el: col, height: 0 });
+  }
+
   images.forEach((src, i) => {
     const cell = document.createElement('div');
-    cell.className = 'gallery__cell';
+    cell.className = 'gallery__cell' + (i >= INITIAL_VISIBLE ? ' gallery__cell--hidden' : '');
+    cell.style.aspectRatio = RATIOS[i % RATIOS.length];
     const img = document.createElement('img');
     img.src = src;
     img.loading = 'lazy';
     img.alt = '';
     cell.appendChild(img);
     cell.addEventListener('click', () => open(i));
-    grid.appendChild(cell);
+
+    // Pinterest-style: push to the shortest column (ties → leftmost)
+    let target = cols[0];
+    for (let c = 1; c < cols.length; c++) {
+      if (cols[c].height < target.height) target = cols[c];
+    }
+    target.el.appendChild(cell);
+    target.height += HEIGHTS[i % HEIGHTS.length];
   });
+
+  const moreBtn = $('#galleryMore');
+  if (moreBtn && images.length > INITIAL_VISIBLE) {
+    moreBtn.hidden = false;
+    moreBtn.addEventListener('click', () => {
+      grid.querySelectorAll('.gallery__cell--hidden')
+        .forEach((el) => el.classList.remove('gallery__cell--hidden'));
+      moreBtn.hidden = true;
+    });
+  }
 
   function render() {
     lbImg.src = images[cur];
