@@ -1346,7 +1346,11 @@ initAccounts(WEDDING.accounts);
 initAddressCopy();
 initShare();
 initReveal();
-initNaverMap();
+(function waitForNaverMaps(start) {
+  if (window.naver && window.naver.maps) { initNaverMap(); return; }
+  if (Date.now() - start > 10000) return;
+  setTimeout(function () { waitForNaverMaps(start); }, 200);
+})(Date.now());
 </script>
 
 <!--
