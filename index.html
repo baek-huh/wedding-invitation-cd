@@ -905,9 +905,18 @@ img { max-width: 100%; display: block; }
         <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
         <span data-copy-label>주소 복사</span>
       </button>
-      <a class="btn btn--solid" href="https://naver.me/5Ot0szic" target="_blank" rel="noopener noreferrer">
-        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z" stroke="#fff" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="#fff" stroke-width="1.5"/></svg>
-        지도 앱에서 열기
+      <a class="btn btn--ghost" href="https://naver.me/5Ot0szic" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <defs>
+            <linearGradient id="naverPinGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1e88ff"/>
+              <stop offset="100%" stop-color="#03c75a"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2C7.582 2 4 5.582 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.418-3.582-8-8-8z" fill="url(#naverPinGrad)"/>
+          <text x="12" y="13.5" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="9" fill="#fff">N</text>
+        </svg>
+        네이버 지도
       </a>
     </div>
 
