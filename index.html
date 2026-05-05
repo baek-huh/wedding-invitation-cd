@@ -488,6 +488,7 @@ img { max-width: 100%; display: block; }
   gap: 8px;
   margin-top: 14px;
 }
+.location__buttons + .location__buttons { margin-top: 5px; }
 .btn {
   flex: 1;
   height: 42px;
@@ -529,6 +530,12 @@ img { max-width: 100%; display: block; }
   color: #fff;
   border: none;
 }
+.btn--text {
+  background: transparent;
+  color: var(--accent);
+  border: none;
+}
+.btn--text:active { background: var(--slate-50); }
 .btn--copied {
   background: var(--slate-300);
   color: var(--slate-950);
@@ -901,10 +908,6 @@ img { max-width: 100%; display: block; }
     </div>
 
     <div class="location__buttons">
-      <button type="button" class="btn btn--ghost" id="btnCopyAddr">
-        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-        <span data-copy-label>주소 복사</span>
-      </button>
       <a class="btn btn--ghost" href="https://naver.me/5Ot0szic" target="_blank" rel="noopener noreferrer">
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
           <defs>
@@ -918,6 +921,40 @@ img { max-width: 100%; display: block; }
         </svg>
         네이버 지도
       </a>
+      <a class="btn btn--ghost" href="https://place.map.kakao.com/195737855" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <rect width="24" height="24" rx="4" fill="#FFE812"/>
+          <path d="M12 5C8.686 5 6 7.667 6 10.957c0 2.972 4.062 7.391 5.4 8.756a.844.844 0 001.2 0c1.338-1.365 5.4-5.784 5.4-8.756C18 7.667 15.314 5 12 5z" fill="#1F6FE5"/>
+          <circle cx="12" cy="11" r="2" fill="#fff"/>
+        </svg>
+        카카오맵
+      </a>
+      <a class="btn btn--ghost" href="https://tmap.life/a34717ea" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="594 174 732 732" aria-hidden="true">
+          <defs>
+            <linearGradient id="tmapGradH" x1="733" x2="1180" y1="369" y2="369" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+              <stop offset="0" stop-color="#F645B9"/>
+              <stop offset="0.61" stop-color="#783BFF"/>
+              <stop offset="1" stop-color="#783BFF"/>
+            </linearGradient>
+            <linearGradient id="tmapGradV" x1="1211.23" x2="876.771" y1="343.204" y2="741.796" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+              <stop offset="0" stop-color="#33E6AF"/>
+              <stop offset="0.85" stop-color="#0264FF"/>
+              <stop offset="1" stop-color="#0264FF"/>
+            </linearGradient>
+          </defs>
+          <path fill="#FFF" d="M595 175h730v730H595z"/>
+          <path fill="url(#tmapGradH)" d="M733 317h447v104H733z"/>
+          <path fill="url(#tmapGradV)" fill-rule="evenodd" d="M1071.76 317H1180v103.696h-66.09v.026l-.57-.027c-54.52 0-99.36 37.954-104.75 86.591l-.15 2.618c-.13 86.032-.26 172.064-.4 258.096H908V509.904l1.133-17.687c8.995-81.817 70.631-149.258 153.127-172.961l9.5-2.256Z"/>
+        </svg>
+        티맵
+      </a>
+    </div>
+    <div class="location__buttons">
+      <button type="button" class="btn btn--text" id="btnCopyAddr">
+        <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        <span data-copy-label>주소 복사</span>
+      </button>
     </div>
 
     <div class="transit">
@@ -1020,8 +1057,7 @@ const WEDDING = {
   accounts: {
     groom: [
       { label: '신랑 허백',     bank: '카카오뱅크', number: '3333-02-1234567' },
-      { label: '아버지 허원순', bank: '국민은행',   number: '123-45-6789-012' },
-      { label: '어머니 이순분', bank: '신한은행',   number: '110-234-567890' },
+      { label: '아버지 허원순', bank: '우리은행',   number: '485-036989-02-001' },
     ],
     bride: [
       { label: '신부 안지현',   bank: '토스뱅크', number: '1000-1234-5678' },
