@@ -394,12 +394,18 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   padding: 20px;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .lightbox[hidden] { display: none; }
 .lightbox__img {
   max-width: 100%;
   max-height: 70%;
   object-fit: contain;
+  touch-action: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
 }
 .lightbox__nav {
   margin-top: 16px;
@@ -1054,7 +1060,9 @@ const WEDDING = {
     address: '서울시 송파구 백제고분로 95',
     coords: { lat: 37.508350896069, lng: 127.079572832828 },
   },
-  gallery: Array.from({ length: 57 }, (_, i) => `assets/gallery/${i + 1}.jpg`),
+  galleryDir: 'assets/gallery',
+  galleryExt: 'jpg',
+  galleryProbeMax: 100,
   accounts: {
     groom: [
       { label: '신랑 허백',     bank: '카카오뱅크', number: '3333-02-6595617' },
@@ -1161,6 +1169,22 @@ function startCountdown(iso) {
 }
 
 /* ── 3. Gallery + Lightbox ─────────────────────────────────── */
+async function probeGalleryImages(dir, ext, maxCount) {
+  const candidates = Array.from({ length: maxCount }, (_, i) => i + 1);
+  const results = await Promise.all(
+    candidates.map(async (n) => {
+      const src = `${dir}/${n}.${ext}`;
+      try {
+        const res = await fetch(src, { method: 'HEAD' });
+        return res.ok ? src : null;
+      } catch {
+        return null;
+      }
+    })
+  );
+  return results.filter(Boolean);
+}
+
 function initGallery(images) {
   const grid = $('#galleryGrid');
   const lb = $('#lightbox');
@@ -1234,6 +1258,17 @@ function initGallery(images) {
   lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
   $('#lbNext').addEventListener('click', (e) => { e.stopPropagation(); next(); });
   $('#lbPrev').addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+
+  // Block pinch-to-zoom while lightbox is open
+  const blockIfOpen = (e) => { if (!lb.hidden) e.preventDefault(); };
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach((evt) => {
+    lb.addEventListener(evt, blockIfOpen);
+    document.addEventListener(evt, blockIfOpen);
+  });
+  lb.addEventListener('touchmove', (e) => {
+    if (!lb.hidden && e.touches.length > 1) e.preventDefault();
+  }, { passive: false });
+  lb.addEventListener('dblclick', blockIfOpen);
 
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
@@ -1387,7 +1422,8 @@ function initReveal() {
 /* ── Bootstrap ─────────────────────────────────────────────── */
 buildCalendar(WEDDING.dateKO.y, WEDDING.dateKO.m, WEDDING.dateKO.d);
 startCountdown(WEDDING.dateISO);
-initGallery(WEDDING.gallery);
+probeGalleryImages(WEDDING.galleryDir, WEDDING.galleryExt, WEDDING.galleryProbeMax)
+  .then(initGallery);
 initAccounts(WEDDING.accounts);
 initAddressCopy();
 initShare();
