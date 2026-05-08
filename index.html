@@ -1062,8 +1062,7 @@ const WEDDING = {
     coords: { lat: 37.508350896069, lng: 127.079572832828 },
   },
   galleryDir: 'assets/gallery',
-  galleryExt: 'jpg',
-  galleryProbeMax: 100,
+  galleryManifest: 'assets/gallery/manifest.json',
   accounts: {
     groom: [
       { label: '신랑 허백',     bank: '카카오뱅크', number: '3333-02-6595617' },
@@ -1169,20 +1168,11 @@ function startCountdown(iso) {
 }
 
 /* ── 3. Gallery + Lightbox ─────────────────────────────────── */
-async function probeGalleryImages(dir, ext, maxCount) {
-  const candidates = Array.from({ length: maxCount }, (_, i) => i + 1);
-  const results = await Promise.all(
-    candidates.map(async (n) => {
-      const src = `${dir}/${n}.${ext}`;
-      try {
-        const res = await fetch(src, { method: 'HEAD' });
-        return res.ok ? src : null;
-      } catch {
-        return null;
-      }
-    })
-  );
-  return results.filter(Boolean);
+async function loadGalleryManifest(dir, manifestUrl) {
+  const res = await fetch(manifestUrl, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`gallery manifest ${res.status}`);
+  const files = await res.json();
+  return files.map((name) => `${dir}/${name}`);
 }
 
 function initGallery(images) {
@@ -1422,7 +1412,7 @@ function initReveal() {
 /* ── Bootstrap ─────────────────────────────────────────────── */
 buildCalendar(WEDDING.dateKO.y, WEDDING.dateKO.m, WEDDING.dateKO.d);
 startCountdown(WEDDING.dateISO);
-probeGalleryImages(WEDDING.galleryDir, WEDDING.galleryExt, WEDDING.galleryProbeMax)
+loadGalleryManifest(WEDDING.galleryDir, WEDDING.galleryManifest)
   .then(initGallery);
 initAccounts(WEDDING.accounts);
 initAddressCopy();
