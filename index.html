@@ -222,11 +222,12 @@ img { max-width: 100%; display: block; }
 }
 .calendar__when {
   margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--slate-800);
   letter-spacing: 0.04em;
 }
+.calendar__day { font-weight: 400; }
 .calendar__grid-wrap {
   margin-top: 32px;
   padding-top: 32px;
@@ -831,7 +832,7 @@ img { max-width: 100%; display: block; }
       <div class="section-head__rule"></div>
     </div>
     <div class="calendar__date">2026. 06. 20</div>
-    <div class="calendar__when">토요일 오후 6시 30분</div>
+    <div class="calendar__when"><span class="calendar__day">토요일</span> 오후 6시 30분</div>
     <div class="calendar__grid-wrap">
       <div class="cal-grid">
         <div class="cal-grid__weekdays">
@@ -1070,8 +1071,7 @@ const WEDDING = {
     ],
     bride: [
       { label: '신부 안지현',   bank: '토스뱅크', number: '1000-1234-5678' },
-      { label: '아버지 안영석', bank: '우리은행', number: '1002-345-678901' },
-      { label: '어머니 정경희', bank: '하나은행', number: '123-456789-01234' },
+      { label: '아버지 안영석', bank: '농협',     number: '356-0105-9994-33' },
     ],
   },
 };
